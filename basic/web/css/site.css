@@ -62,4 +62,29 @@ header {
   font-family: "Unbounded", sans-serif;
 }
 
+.promo {
+  background-image: url(/../web/img/kofe-na-temnom-fone-vid-sverkhu-1.png);
+  height: 700px;
+  text-align: center;
+  background-repeat: no-repeat;
+}
+
+.text {
+  font-size: 45px;
+  padding-top: 75px;
+  font-family: "Unbounded", sans-serif;
+  text-align: center;
+  color: white;
+}
+.text h1 {
+  font-family: "Philosopher", sans-serif;
+  font-size: 60px;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+  font-weight: 600;
+  line-height: 70px;
+  margin-bottom: 27px;
+  color: #fff;
+}
+
 /*# sourceMappingURL=site.css.map */

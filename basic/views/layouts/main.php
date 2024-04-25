@@ -77,9 +77,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 </header>
     <section class="promo">
         <div class="text container">
-            <h1>Аренда авто <br> в Ногинске</h1>
-            <p>Прокат или аренда автомобиля с водителем и без</p>
+            <h1>Свежая и вкусная еда
+                Для вашего здоровья</h1>
         </div>
+        <button class="men">Посмотреть Меню</button>
     </section>
 <!--<main id="main" class="flex-shrink-0" role="main">
     <div class="container">
