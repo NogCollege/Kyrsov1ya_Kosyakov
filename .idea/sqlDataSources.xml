@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="a35cdcd7-cb7b-42c0-86f2-c19aabcd69f9" name="user2">
+      <data-sources db="38049671-171a-4c49-9023-8af91a291e45" />
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="77e0c033-bcf8-4513-9ca8-2457c1113809" />
+          <option name="name" value="users" />
+          <option name="dbmsName" value="MYSQL" />
+          <option name="urls">
+            <array>
+              <option value="file://$USER_HOME$/Downloads/users.sql" />
+            </array>
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>
