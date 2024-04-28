@@ -183,12 +183,39 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 //
 //    ?>
 </section>
-<section class="informatiom">
-    <di>
-        <img>
-    </div>
+<div class="about_area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-xl-6 col-lg-6 col-md-6">
+                <div class="about_thumb2">
+                    <div class="img_1">
+                        <img src="/../web/img/1.png" alt="">
+                    </div>
+                    <div class="img_2">
+                        <img src="/../web/img/2.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-5 offset-lg-1 col-md-6">
+                <div class="about_info">
+                    <div class="section_title mb-20px">
+                        <span>О нас</span>
+                        <h3>Лучшее кафе  <br>
+                            в твоем городе</h3>
+                    </div>
+                    <p>Наше кафе - это место, где каждый клиент встречается с теплом и уютом. Мы гордимся своим разнообразным меню, предлагающим блюда на любой вкус - от классических завтраков до изысканных десертов. Наш поручик бариста готов предложить вам широкий выбор напитков - от ароматного кофе до освежающих коктейлей. Мы уделяем особое внимание качеству продуктов и заботимся о каждой детали приготовления блюд.
 
-</section>
+                        Наша команда внимательных и дружелюбных сотрудников всегда готова встретить вас с улыбкой и обеспечить первоклассное обслуживание. Мы создаем атмосферу гостеприимства и комфорта, чтобы каждый гость чувствовал себя как дома. Мы стремимся к тому, чтобы визит в наше кафе стал для вас незабываемым и приятным.
+
+                        Приходите в наше кафе и позвольте нам порадовать вас вкусом, обслуживанием и атмосферой. Мы рады будем видеть вас в числе наших постоянных гостей!</p>
+                    <div class="img_thumb">
+                        <img src="/../web/img/avt.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--<main id="main" class="flex-shrink-0" role="main">
     <div class="container">
         <?php /*if (!empty($this->params['breadcrumbs'])): */?>
