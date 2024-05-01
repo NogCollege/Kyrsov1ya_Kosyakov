@@ -6,7 +6,10 @@
     max-width: 1920px;
     overflow-x: hidden;
   }
-
+  a {
+    text-decoration:none;
+    color: white;
+  }
   .container{
     width: 1320px;
     margin: 0 auto;
@@ -310,5 +313,104 @@
     font-family: "Montserrat", sans-serif;
     text-transform: uppercase;
   }
+  .main-footer {
+    margin-top: 65px;
+    padding: 60px 0;
+    color: #ffffff;
+    background-color: #212121;
+    background-position: 0 0;
+    background-repeat: repeat;
+  }
+
+  .inner-page .main-footer {
+    margin-top: 50px;
+  }
+
+  .main-footer .container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    max-width: 1140px;
+  }
+  h2{
+    color: #F2C64D;
+  }
+  .footer-address {
+    margin-right: 60px;
+    width: 320px;
+    font-style: normal;
+  }
+
+  .footer-address a {
+    color: #ffffff;
+  }
+
+  .footer-address a:first-of-type {
+    text-decoration: underline;
+  }
+
+  .footer-address a:first-of-type:hover,
+  .footer-address a:first-of-type:focus {
+    text-decoration: none;
+  }
+
+  .footer-social {
+    width: 180px;
+    text-align: center;
+  }
+
+  .footer-social b {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .footer-social ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0;
+    width: 141px;
+    list-style: none;
+  }
+
+  .social-button {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 43px;
+    height: 43px;
+    background-color: #000000;
+  }
+
+  .social-button:hover,
+  .social-button:focus {
+    background-color: #ffffff;
+  }
+
+  .social-button:hover path,
+  .social-button:focus path {
+    fill: #000000;
+  }
+
+  .footer-copyright {
+    margin-left: auto;
+    width: 240px;
+    text-align: center;
+  }
+
+
+
 
 
