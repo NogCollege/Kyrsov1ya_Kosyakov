@@ -7,14 +7,44 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
 use app\models\ContactForm;
-
+use app\models\SignupForm;
+use app\models\User;
+use app\models\LoginForm;
 class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
      */
+    public function actionAddAdmin() {
+        $model = User::find()->where(['username' => 'admin'])->one();
+        if (empty($model)) {
+            $user = new User();
+            $user->username = 'admin';
+            $user->email = 'kolt12566@gmail.com';
+            $user->setPassword('admin');
+            $user->generateAuthKey();
+            if ($user->save()) {
+                echo 'good';
+            }
+        }
+    }
+    public function actionSignup()
+    {
+        $dodel = new SignupForm();
+
+        if ($dodel->load(Yii::$app->request->post())) {
+            if ($user = $dodel->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goHome();
+                }
+            }
+        }
+
+        return $this->render('signup', [
+            'dodel' => $dodel,
+        ]);
+    }
     public function behaviors()
     {
         return [
@@ -61,6 +91,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this ->layout = 'main';
         return $this->render('index');
     }
 
@@ -69,22 +100,25 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
 
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+public function actionLogin()
+{
+    if (!Yii::$app->user->isGuest) {
+        return $this->goHome();
     }
+
+    $model = new LoginForm(); // испрваляем название класса
+
+    if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        return $this->goBack();
+    }
+
+    $model->password = '';
+    return $this->render('login', [
+        'model' => $model,
+    ]);
+}
 
     /**
      * Logout action.

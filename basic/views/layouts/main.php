@@ -36,20 +36,22 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <div class="nav-menu">
         <ul class="menu">
             <div class="logo">
-                <li><h1>Картошка от Антошки</h1></li>
+                <li><h1><?= 'картошка от антошки' ?></h1></li>
             </div>
-            <div class="knopki no-vid" >
-                <li><a href="#menu"> Меню </a></li>
-                <li> Купоны и Акции</li>
-                <li>Контакты</li>
-                <li><a href="#onas">О компании</a></li>
+            <div class="knopki no-vid">
+                <li><?= 'меню' ?></li>
+                <li><?= 'купоны и акции' ?></li>
+                <li><?= 'контакты' ?></li>
+                <li><?= 'о компании' ?></li>
             </div>
             <div class="nomer no-vid">
-                <li>7 (499) 110-20-47</li>
+                <li><?= '7 (499) 110-20-47' ?></li>
             </div>
+            <img>
             <div class="korzina">
-                <li><a href=''><img src="/../web/img/free-icon-shopping-cart-711897%20(2).png" alt=""></a></li>
-                <li><a href='/../views/site/login.php'><img src="/../web/img/free-icon-login-6681204.png"></a></li>
+                <li><a href=""><img src="<?= '/../web/img/free-icon-shopping-cart-711897%20(2).png' ?>" alt=""></a></li>
+                <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
+                <?= Html::a(Html::img('/../web/img/free-icon-online-registration-3200748.png', ['alt' => 'your image']), ['/site/signup']) ?>
             </div>
         </ul>
     </div>
@@ -60,7 +62,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             Для вашего здоровья</h1>
         <a href="#" class="btn">Посмотреть меню</a>
     </div>
-    div>
     <ul class=" cifirki container">
         <li >
             <div class="b">
@@ -148,7 +149,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             </li>
         </ul>
     </div>
-<!--    --><?php
+    <?php
 //    require_once ("controllers/connect.php");
 //
 //    $query = "SELECT * FROM catalogg";

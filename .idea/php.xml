@@ -58,7 +58,6 @@
       <path value="$PROJECT_DIR$/basic/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/basic/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2" />
-      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-bootstrap5" />
       <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-composer" />
       <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-debug" />
       <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-faker" />
@@ -100,9 +99,9 @@
       <path value="$PROJECT_DIR$/basic/vendor/codeception/module-filesystem" />
       <path value="$PROJECT_DIR$/basic/vendor/codeception/module-yii2" />
       <path value="$PROJECT_DIR$/basic/vendor/codeception/stub" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-bootstrap5" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.3" />
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
