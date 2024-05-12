@@ -11,8 +11,15 @@ use app\models\ContactForm;
 use app\models\SignupForm;
 use app\models\User;
 use app\models\LoginForm;
+use app\models\Tovar;
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 class SiteController extends Controller
 {
+
     /**
      * {@inheritdoc}
      */
@@ -71,6 +78,14 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
+    public function actionList()
+    {
+        $data = Tovar::find()->all();
+
+        return $this->render('index', [
+            'data' => $data,
+        ]);
+    }
     public function actions()
     {
         return [
@@ -83,7 +98,6 @@ class SiteController extends Controller
             ],
         ];
     }
-
     /**
      * Displays homepage.
      *
@@ -91,7 +105,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this ->layout = 'main';
         return $this->render('index');
     }
 
@@ -101,24 +114,23 @@ class SiteController extends Controller
      * @return Response|string
      */
 
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
 
-public function actionLogin()
-{
-    if (!Yii::$app->user->isGuest) {
-        return $this->goHome();
+        $model = new LoginForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+
+        $model->password = '';
+        return $this->render('default', [
+            'model' => $model,
+        ]);
     }
-
-    $model = new LoginForm(); // испрваляем название класса
-
-    if ($model->load(Yii::$app->request->post()) && $model->login()) {
-        return $this->goBack();
-    }
-
-    $model->password = '';
-    return $this->render('login', [
-        'model' => $model,
-    ]);
-}
 
     /**
      * Logout action.
