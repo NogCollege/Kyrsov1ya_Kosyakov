@@ -160,27 +160,27 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     <div class="katalog container">
         <ul class="katal">
-
-            <?php if (!empty($data)): ?>
-                    <li class="vis-biba <?= $data->category ?>">
-                        <div class="img-kat">
-                            <img src="/../web/img/free-icon-calories-4812905.png" alt="">
-                        </div>
-                        <h4><?= $data->name ?></h4>
-                        <div class="text-s2">
-                            <p><img src="/../web/img/free-icon-calories-4812905.png" alt=""> <?= $data->kalorii ?></p>
-                            <p class="pa"><img src="/../web/img/free-icon-weight-4208566.png" alt=""> <?= $data->ves ?></p>
-                        </div>
-                        <div class="cen">
-                            <button>Забронировать</button>
-                            <p>от <span><?= $data->price ?></span> руб.</p>
-                        </div>
-                    </li>
-            <?php else: ?>
-                <p>не вижу</p>
-            <?php endif; ?>
+            <?php
+            foreach ($data as $item):
+                ?>
+                <li class="vis-biba <?= $item->category ?>">
+                    <div class="img-kat">
+                        <img src="/../web/img/free-icon-calories-4812905.png" alt="">
+                    </div>
+                    <h4><?= $item->name ?></h4>
+                    <div class="text-s2">
+                        <p><img src="/../web/img/free-icon-calories-4812905.png" alt=""> <?= $item->kalorii ?></p>
+                        <p class="pa"><img src="/../web/img/free-icon-weight-4208566.png" alt=""> <?= $item->ves ?></p>
+                    </div>
+                    <div class="cen">
+                        <button>Забронировать</button>
+                        <p>от <span><?= $item->price ?></span> руб.</p>
+                    </div>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
+
 </section>
 <div id="onas" class="about_area">
     <div class="container">
