@@ -49,7 +49,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             </div>
             <img>
             <div class="korzina">
-                <li><a href=""><img src="<?= '/../web/img/free-icon-shopping-cart-711897%20(2).png' ?>" alt=""></a></li>
+                <li><a href=""><img src="/../web/img/free-icon-shopping-cart-711897%20(2).png"></a></li>
                 <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
                 <?= Html::a(Html::img('/../web/img/free-icon-online-registration-3200748.png', ['alt' => 'your image']), ['/site/signup']) ?>
             </div>
@@ -150,39 +150,34 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         </ul>
     </div>
     <?php
-//    require_once ("controllers/connect.php");
-//
-//    $query = "SELECT * FROM catalogg";
-//
-//    $result = mysqli_query($link, $query) or die(mysqli_error($link));
-//
-//    for ($data = []; $row = mysqli_fetch_assoc($result); $data[] = $row);
-//
-//    echo '<div class = "katalog container">
-//    <ul class="katal">';
-//    foreach ($data as $elem){
-//        $result = '';
-//        $result .= '
-//        <li class="vis-biba '.$elem['categoria'] .'">
-//        <div class="img-kat">
-//        <img src="templates/img/photos/'.$elem['id'].'-'.$elem['nazvan']  .'/main.jpg" alt="">
-//        </div>';
-//        $result .= ' <h4>'. $elem['fullname'] . ', '. $elem['god'] . '</h4>';
-//        $result .= '<div class="text-s2">
-//            <p> <img src="templates/img/Vector (8).png" alt="">'. $elem['volume'] . ',' . $elem['Dvigatel'] . '</p>
-//            <p class="pa"> <img src="templates/img/Vector (9).png" alt="">'. $elem['loshadki'] .'</p>
-//        </div>';
-//        $result .= '<hr size="1px">';
-//        $result .= '<div class="cen">
-//        <a href="fullopis.php?id='.$elem['id'].'"> <button>Забронировать</button></a><p>от <span>'.$elem['mid'].'</span>руб/сут.</p>
-//        </div>';
-//        $result .= '</li>';
-//
-//        echo $result;
-//    }
-//    echo '</ul></div>';
-//
-//    ?>
+    $pdo = new PDO('mysql:host=localhost;dbname=yii2basic', 'root', '');
+
+    // Получение данных о товарах из базы
+    $statement = $pdo->query('SELECT * FROM TOVAR');
+    $tovars = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    ?>
+
+    <div class="katalog container">
+        <ul class="katal">
+            <?php foreach ($tovars as $tovar): ?>
+                <li class="vis-biba">
+                    <div class="img-kat">
+                        <img src="<?= $tovar['image_url'] ?>" alt="">
+                    </div>
+                    <h4><?= $tovar['name'] ?></h4>
+                    <div class="text-s2">
+                        <p class="pa"><img src="/../web/img/free-icon-weight-4208566.png" alt=""> Вес: <?= $tovar['ves'] ?></p>
+                    </div>
+                    <div class="cen">
+                        <p>Цена: <?= $tovar['price'] ?></p>
+                    </div>
+                    <p><?= $tovar['description'] ?></p>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
 </section>
 <div id="onas" class="about_area">
     <div class="container">

@@ -11,6 +11,7 @@ use app\models\ContactForm;
 use app\models\SignupForm;
 use app\models\User;
 use app\models\LoginForm;
+use app\models\Tovar;
 class SiteController extends Controller
 {
     /**
@@ -91,8 +92,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $this ->layout = 'main';
-        return $this->render('index');
+        $tovars = Tovar::find()->all();
+
+        return $this->render('index', [
+            'tovars' => $tovars,
+        ]);
     }
 
     /**
