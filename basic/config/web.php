@@ -11,7 +11,17 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+
     'components' => [
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                'main' => 'site/main',
+                'site/list' => 'site/list', // Пример маршрута к действию list в контроллере SiteController
+            ],
+        ],
+
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'BkbrxU_WAesWWkwqSyl-XvLE1Q_dloFP',
@@ -51,6 +61,7 @@ $config = [
         ],
         */
     ],
+
     'params' => $params,
 ];
 
@@ -70,5 +81,4 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
-
 return $config;
