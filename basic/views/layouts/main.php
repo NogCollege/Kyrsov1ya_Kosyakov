@@ -51,7 +51,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <div class="korzina">
                 <li><a href=""><img src="/../web/img/free-icon-shopping-cart-711897%20(2).png"></a></li>
                 <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
-                <?= Html::a(Html::img('/../web/img/free-icon-online-registration-3200748.png', ['alt' => 'your image']), ['/site/signup']) ?>
             </div>
         </ul>
     </div>
@@ -167,12 +166,13 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     </div>
                     <h4><?= $tovar['name'] ?></h4>
                     <div class="text-s2">
-                        <p class="pa"><img src="/../web/img/free-icon-weight-4208566.png" alt=""> Вес: <?= $tovar['ves'] ?></p>
+                        <p class="pa"><img src="/../web/img/weigh.jpg" alt=""> Вес: <?= $tovar['ves'] ?></p>
                     </div>
+                    <p class="description"><?= $tovar['description'] ?></p>
                     <div class="cen">
                         <p>Цена: <?= $tovar['price'] ?></p>
+                        <button>заказать</button>
                     </div>
-                    <p><?= $tovar['description'] ?></p>
                 </li>
             <?php endforeach; ?>
         </ul>
