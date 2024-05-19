@@ -253,8 +253,8 @@ header {
 .katal li img {
   padding-top: 25px;
   object-fit: cover;
-  height: 120px;
-  width: 250px;
+  height: 180px;
+  width: 400px;
 }
 .katal li h4 {
   font-size: 20px;
