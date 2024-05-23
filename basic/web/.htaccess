@@ -1,4 +1,10 @@
+# use mod_rewrite for pretty URL support
+Options -Indexes
 RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
+# If a directory or a file exists, use the request directly
+#RewriteCond %{REQUEST_URI} ^/(storage)
+#RewriteRule ^/storage/(.*)/documents/(.*)$ /storage/db/documents/$2 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule . index.php [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+# Otherwise forward the request to index.php
+RewriteRule . index.php

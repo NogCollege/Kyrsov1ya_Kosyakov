@@ -32,29 +32,56 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <!--<header id="header">
 
 </header>-->
-<header>
-    <div class="nav-menu">
-        <ul class="menu">
-            <div class="logo">
-                <li><h1><?= 'картошка от антошки' ?></h1></li>
-            </div>
-            <div class="knopki no-vid">
-                <li><?= 'меню' ?></li>
-                <li><?= 'купоны и акции' ?></li>
-                <li><?= 'контакты' ?></li>
-                <li><?= 'о компании' ?></li>
-            </div>
-            <div class="nomer no-vid">
-                <li><?= '7 (499) 110-20-47' ?></li>
-            </div>
-            <img>
-            <div class="korzina">
-                <li><a href=""><img src="/../web/img/free-icon-shopping-cart-711897%20(2).png"></a></li>
-                <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
-            </div>
-        </ul>
+<div class="wrap">
+    <?php
+    NavBar::begin([
+        'brandLabel' => 'My Company',
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => [
+            'class' => 'navbar-inverse navbar-fixed-top',
+        ],
+    ]);
+
+    $menuItems = [
+        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
+    ];
+
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Register', 'url' => ['site/register']];
+        $menuItems[] = ['label' => 'Login', 'url' => ['site/login']];
+    } else {
+        $menuItems[] = [
+            'label' => 'Admin Panel',
+            'url' => ['/site/admin'],
+            'visible' => Yii::$app->user->identity->role === 'admin',
+        ];
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
+
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav navbar-right'],
+        'items' => $menuItems,
+    ]);
+
+    NavBar::end();
+    ?>
+
+    <div class="container">
+        <?= Breadcrumbs::widget([
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+        ]) ?>
+        <?= $content ?>
     </div>
-</header>
+</div>
 <section class="promo">
     <div class="text container">
         <h1>Свежая и вкусная еда

@@ -13,18 +13,19 @@ $config = [
     ],
 
     'components' => [
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                'main' => 'site/main',
-                'site/list' => 'site/list', // Пример маршрута к действию list в контроллере SiteController
-            ],
+            'urlManager' => [
+                'enablePrettyUrl' => true,
+                'showScriptName' => false,
+                'rules' => [
+                    '' => 'site/index',
+                    '<action>'=>'site/<action>',
+                ],
         ],
 
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'BkbrxU_WAesWWkwqSyl-XvLE1Q_dloFP',
+
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
