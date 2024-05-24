@@ -11,21 +11,10 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
-
     'components' => [
-            'urlManager' => [
-                'enablePrettyUrl' => true,
-                'showScriptName' => false,
-                'rules' => [
-                    '' => 'site/index',
-                    '<action>'=>'site/<action>',
-                ],
-        ],
-
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'BkbrxU_WAesWWkwqSyl-XvLE1Q_dloFP',
-
+            'cookieValidationKey' => '6wbRDAKP2pKDvxJUwDv8HDvIV3tVXxug',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -62,7 +51,6 @@ $config = [
         ],
         */
     ],
-
     'params' => $params,
 ];
 
@@ -82,4 +70,5 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
+
 return $config;

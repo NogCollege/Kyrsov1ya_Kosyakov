@@ -2,7 +2,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #F4F4F4;
-  max-width: 1920px;
   overflow-x: hidden;
 }
 
@@ -28,6 +27,10 @@ header {
   align-items: center;
 }
 
+.site-login {
+  margin-left: 200px;
+}
+
 .logo h1 {
   color: white;
   margin-top: 20px;
@@ -35,16 +38,17 @@ header {
   font-size: 35px;
   font-family: "Inter", sans-serif;
   margin-left: -35px;
+  padding-left: 25px;
 }
 
 .nav-menu {
-  width: 1800px;
+  width: 1920px;
   margin: 0 auto;
+  background-color: #212121;
 }
 
 .menu {
   display: flex;
-  justify-content: space-between;
   list-style-type: none;
   align-items: center;
 }
@@ -53,31 +57,32 @@ header {
   display: flex;
   color: white;
   margin-right: 65px;
+  margin-left: 250px;
 }
 
 .knopki li {
-  margin-top: 20px;
+  margin-top: -15px;
   padding-left: 20px;
   font-weight: 500;
   font-size: 20px;
+  padding-top: 25px;
   font-family: "PP Pangram Sans", sans-serif;
 }
 
 .nomer {
+  margin-left: 250px;
   color: white;
-  margin-top: 20px;
   font-weight: 700;
   font-size: 18px;
   font-family: "Unbounded", sans-serif;
 }
 
 .korzina {
+  margin-left: 55px;
   display: flex;
-  margin-top: 5px;
   padding-left: 25px;
 }
 .korzina img {
-  padding-top: 10px;
   width: 50px;
   color: white;
   padding-left: 25px;
@@ -88,6 +93,7 @@ header {
   height: 700px;
   text-align: center;
   background-repeat: no-repeat;
+  width: 1920px;
 }
 
 .text {

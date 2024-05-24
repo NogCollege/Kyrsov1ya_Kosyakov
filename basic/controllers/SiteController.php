@@ -7,8 +7,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\ContactForm;
-use app\models\SignupForm;
+use app\models\RegisterForm;
 use app\models\User;
 use app\models\LoginForm;
 use app\models\Tovar;
@@ -110,11 +109,7 @@ class SiteController extends Controller
     }
     public function actionIndex()
     {
-        $tovars = Tovar::find()->all();
-
-        return $this->render('index', [
-            'tovars' => $tovars,
-        ]);
+        return $this->render('index');
     }
 
     /**
