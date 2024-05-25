@@ -49,6 +49,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <div class="korzina">
                 <li><a href=''><img src="/../web/img/free-icon-shopping-cart-711897%20(2).png" alt=""></a></li>
                 <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
+                <li><?= Html::a('Выход', ['/site/logout'], ['data-method' => 'post']) ?></li>
             </div>
     </ul>
 </div>
@@ -59,7 +60,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <?= $content ?>
     </div>
 </div>
-
 <footer class="main-footer">
 
     <div class="container">

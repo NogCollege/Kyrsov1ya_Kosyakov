@@ -16,44 +16,26 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actionAddAdmin() {
-        $model = User::find()->where(['username' => 'admin'])->one();
-        if (empty($model)) {
-            $user = new User();
-            $user->username = 'admin';
-            $user->email = 'kolt12566@gmail.com';
-            $user->setPassword('admin');
-            $user->generateAuthKey();
-            if ($user->save()) {
-                echo 'good';
-            }
-        }
-    }
     public function behaviors()
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['logout', 'admin'],
                 'rules' => [
                     [
-                        'actions' => ['logout', 'admin'],
+                        'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
                     [
                         'actions' => ['admin'],
                         'allow' => true,
+                        'roles' => ['@'],
                         'matchCallback' => function($rule, $action) {
-                            return Yii::$app->user->identity->role === 'admin';
+                            return Yii::$app->user->identity->role === User::ROLE_ADMIN;
                         },
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -68,6 +50,17 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionRegister()
+    {
+        $model = new RegisterForm();
+        if ($model->load(Yii::$app->request->post()) && $model->register()) {
+            return $this->redirect(['login']);
+        }
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -76,6 +69,9 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            if (Yii::$app->user->identity->role === User::ROLE_ADMIN) {
+                return $this->redirect(['admin']);
+            }
             return $this->goBack();
         }
 
@@ -87,20 +83,7 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-
         return $this->goHome();
-    }
-
-    public function actionRegister()
-    {
-        $model = new RegisterForm();
-        if ($model->load(Yii::$app->request->post()) && $model->register()) {
-            return $this->redirect(['login']);
-        }
-
-        return $this->render('register', [
-            'model' => $model,
-        ]);
     }
 
     public function actionAdmin()
@@ -111,6 +94,9 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+
+
+
 
     /**
      * Login action.

@@ -4,12 +4,15 @@ namespace app\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use yii\behaviors\TimestampBehavior;
 
 class User extends ActiveRecord implements IdentityInterface
 {
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
+
     public static function tableName()
     {
         return '{{%user}}';
@@ -18,19 +21,17 @@ class User extends ActiveRecord implements IdentityInterface
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            TimestampBehavior::class,
         ];
     }
 
     public function rules()
     {
         return [
-            ['username', 'required'],
+            [['username', 'password_hash', 'auth_key'], 'required'],
             ['username', 'unique'],
-            ['username', 'string', 'min' => 2, 'max' => 255],
-
-            ['password', 'required', 'on' => 'create'],
-            ['password', 'string', 'min' => 6],
+            ['username', 'string', 'max' => 255],
+            ['role', 'in', 'range' => [self::ROLE_USER, self::ROLE_ADMIN]],
         ];
     }
 
@@ -51,7 +52,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getId()
     {
-        return $this->id;
+        return $this->getPrimaryKey();
     }
 
     public function getAuthKey()
@@ -61,7 +62,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function validateAuthKey($authKey)
     {
-        return $this->auth_key === $authKey;
+        return $this->getAuthKey() === $authKey;
     }
 
     public function validatePassword($password)
@@ -78,9 +79,5 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
-
-    public function generateAccessToken()
-    {
-        $this->access_token = Yii::$app->security->generateRandomString();
-    }
 }
+
