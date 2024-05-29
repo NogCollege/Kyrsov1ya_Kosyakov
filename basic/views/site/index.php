@@ -2,10 +2,18 @@
 
 
 /** @var yii\web\View $this */
+use app\assets\AppAsset;
+use app\widgets\Alert;
+use yii\bootstrap5\Breadcrumbs;
+use yii\bootstrap5\Html;
+use yii\bootstrap5\Nav;
+use yii\bootstrap5\NavBar;
+use yii\helpers\Url;
 
 $this->title = 'Картошка от Антошки';
 
 ?>
+
 <section class="promo">
     <div class="text container">
         <h1>Свежая и вкусная еда
@@ -108,6 +116,7 @@ $this->title = 'Картошка от Антошки';
 
     ?>
 
+
     <div class="katalog container">
         <ul class="katal">
             <?php foreach ($tovars as $tovar): ?>
@@ -122,12 +131,23 @@ $this->title = 'Картошка от Антошки';
                     <p class="description"><?= $tovar['description'] ?></p>
                     <div class="cen">
                         <p>Цена: <?= $tovar['price'] ?></p>
-                        <button>заказать</button>
+                        <form method="post" action="<?= Url::to(['site/add-to-cart']) ?>">
+                            <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
+                            <input type="hidden" name="id" value="<?= $tovar['id'] ?>">
+                            <input type="hidden" name="name" value="<?= $tovar['name'] ?>">
+                            <input type="hidden" name="price" value="<?= $tovar['price'] ?>">
+                            <input type="hidden" name="image_url" value="<?= $tovar['image_url'] ?>">
+                            <button type="submit">заказать</button>
+                        </form>
                     </div>
                 </li>
             <?php endforeach; ?>
         </ul>
     </div>
+
+
+
+
 
 </section>
 <div id="onas" class="about_area">

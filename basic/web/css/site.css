@@ -424,8 +424,9 @@ header {
 }
 
 .main-footer {
-  margin-top: 65px;
-  padding: 60px 0;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
   color: #ffffff;
   background-color: #212121;
   background-position: 0 0;

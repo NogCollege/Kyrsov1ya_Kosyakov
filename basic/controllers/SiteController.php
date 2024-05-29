@@ -90,6 +90,43 @@ class SiteController extends Controller
     {
         return $this->render('admin');
     }
+    public function actionCart()
+    {
+        $cart = Yii::$app->session->get('cart', []);
+        return $this->render('cart', ['cart' => $cart]);
+    }
+
+    public function actionAddToCart()
+    {
+        $request = Yii::$app->request;
+        $id = $request->post('id');
+        $name = $request->post('name');
+        $price = $request->post('price');
+        $image_url = $request->post('image_url');
+        $ves = $request->post('ves');
+        $description = $request->post('description');
+
+        $cart = Yii::$app->session->get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] += 1;
+        } else {
+            $cart[$id] = [
+                'id' => $id,
+                'name' => $name,
+                'price' => $price,
+                'image_url' => $image_url,
+                'ves' => $ves,
+                'description' => $description,
+                'quantity' => 1,
+            ];
+        }
+
+        Yii::$app->session->set('cart', $cart);
+
+        return $this->redirect(['site/cart']);
+    }
+
     public function actionIndex()
     {
         return $this->render('index');
@@ -98,7 +135,9 @@ class SiteController extends Controller
 
 
 
+
     /**
+     * Login action.
      * Login action.
      *
      * @return Response|string
