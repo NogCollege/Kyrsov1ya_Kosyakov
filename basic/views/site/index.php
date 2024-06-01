@@ -122,21 +122,21 @@ $this->title = 'Картошка от Антошки';
             <?php foreach ($tovars as $tovar): ?>
                 <li class="vis-biba">
                     <div class="img-kat">
-                        <img src="<?= $tovar['image_url'] ?>" alt="">
+                        <img src="<?= Html::encode($tovar['image_url']) ?>" alt="">
                     </div>
-                    <h4><?= $tovar['name'] ?></h4>
+                    <h4><?= Html::encode($tovar['name']) ?></h4>
                     <div class="text-s2">
-                        <p class="pa"><img src="/../web/img/weigh.jpg" alt=""> Вес: <?= $tovar['ves'] ?></p>
+                        <p class="pa"><img src="/../web/img/weigh.jpg" alt=""> Вес: <?= Html::encode($tovar['ves']) ?></p>
                     </div>
-                    <p class="description"><?= $tovar['description'] ?></p>
+                    <p class="description"><?= Html::encode($tovar['description']) ?></p>
                     <div class="cen">
-                        <p>Цена: <?= $tovar['price'] ?></p>
+                        <p>Цена: <?= Html::encode($tovar['price']) ?></p>
                         <form method="post" action="<?= Url::to(['site/add-to-cart']) ?>">
                             <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
-                            <input type="hidden" name="id" value="<?= $tovar['id'] ?>">
-                            <input type="hidden" name="name" value="<?= $tovar['name'] ?>">
-                            <input type="hidden" name="price" value="<?= $tovar['price'] ?>">
-                            <input type="hidden" name="image_url" value="<?= $tovar['image_url'] ?>">
+                            <input type="hidden" name="id" value="<?= Html::encode($tovar['id']) ?>">
+                            <input type="hidden" name="name" value="<?= Html::encode($tovar['name']) ?>">
+                            <input type="hidden" name="price" value="<?= Html::encode($tovar['price']) ?>">
+                            <input type="hidden" name="image_url" value="<?= Html::encode($tovar['image_url']) ?>">
                             <button type="submit">заказать</button>
                         </form>
                     </div>
@@ -144,12 +144,6 @@ $this->title = 'Картошка от Антошки';
             <?php endforeach; ?>
         </ul>
     </div>
-
-
-
-
-
-</section>
 <div id="onas" class="about_area">
     <div class="container">
         <div class="row align-items-center">

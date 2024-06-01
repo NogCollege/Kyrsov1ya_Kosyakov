@@ -38,10 +38,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <li><h1>Картошка от Антошки</h1></li>
         </div>
         <div class="knopki no-vid" >
-            <li><a href="#menu"> Меню </a></li>
+            <li> Меню </li>
             <li> Купоны и Акции</li>
             <li>Контакты</li>
-            <li><a href="#onas">О компании</a></li>
+            <li>О компании</li>
             <div class="nomer no-vid">
                 <li><?= '7 (499) 110-20-47' ?></li>
             </div>

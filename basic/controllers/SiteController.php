@@ -11,6 +11,10 @@ use app\models\RegisterForm;
 use app\models\User;
 use app\models\LoginForm;
 use app\models\Tovar;
+use app\models\Cart;
+use app\models\Order;
+use yii\helpers\Url;
+use yii\helpers\Html;
 class SiteController extends Controller
 {
     /**
@@ -90,43 +94,152 @@ class SiteController extends Controller
     {
         return $this->render('admin');
     }
-    public function actionCart()
+    public function actionCreateOrder()
     {
-        $cart = Yii::$app->session->get('cart', []);
-        return $this->render('cart', ['cart' => $cart]);
+        // Получаем текущего пользователя
+        $user = Yii::$app->user->identity;
+
+        // Создаем новый заказ
+        $model = new Order();
+        $model->customer_name = $user->username; // Имя пользователя
+        $model->customer_email = $user->email; // Email пользователя
+        $model->promocode = 'nogcollege'; // Пример применения промокода
+        $model->delivery_method = 'home_delivery'; // Пример выбора метода доставки
+
+        // Сохраняем модель в базе данных
+        if ($model->save()) {
+            // Успешно сохранено
+            return $this->redirect(['order/view', 'id' => $model->id]);
+        } else {
+            // Ошибка при сохранении
+            Yii::error("Ошибка при сохранении заказа: " . json_encode($model->errors));
+            throw new \yii\web\HttpException(500, "Ошибка при сохранении заказа");
+        }
+    }
+    public function actionCheckout()
+    {
+        $order = new Order();
+        $cart = Yii::$app->session->get('cart', new Cart());
+
+        if ($order->load(Yii::$app->request->post()) && $order->validate()) {
+            $order->customer_name = Yii::$app->request->post('Order')['customer_name'];
+            $order->customer_email = Yii::$app->request->post('Order')['customer_email'];
+            $order->applyPromocode($order->promocode); // Применение промокода
+            $order->status = Order::STATUS_CREATED;
+            $order->save();
+
+            // Отправка писем
+            $this->sendEmailToCustomer($order);
+            $this->sendEmailToAdmin($order);
+
+            // Перенаправление на страницу статуса заказа
+            return $this->redirect(['site/order-status', 'id' => $order->id]);
+        }
+
+        return $this->render('checkout', ['order' => $order, 'cart' => $cart]);
+    }
+
+    public function actionOrderStatus($id)
+    {
+        $order = Order::findOne($id);
+        return $this->render('order-status', ['order' => $order]);
+    }
+
+    private function sendEmailToCustomer($order)
+    {
+        Yii::$app->mailer->compose()
+            ->setTo($order->email)
+            ->setSubject('Подтверждение заказа')
+            ->setTextBody('Ваш заказ успешно оформлен.')
+            ->send();
+    }
+
+    private function sendEmailToAdmin($order)
+    {
+        $adminEmail = 'kolt12566@gmail.com'; // Замените на реальный адрес администратора
+        Yii::$app->mailer->compose()
+            ->setTo($adminEmail)
+            ->setSubject('Новый заказ')
+            ->setTextBody('Поступил новый заказ. Номер заказа: ' . $order->id)
+            ->send();
+    }
+
+
+public function actionAdd()
+    {
+        $id = Yii::$app->request->post('id');
+        $tovar = Tovar::findOne($id);
+
+        if ($tovar) {
+            $cart = Yii::$app->session->get('cart', new Cart());
+            $cart->addItem($tovar->attributes);
+            Yii::$app->session->set('cart', $cart);
+        }
+
+        return $this->redirect(['cart/index']);
+    }
+
+    public function actionRemove($id)
+    {
+        $cart = Yii::$app->session->get('cart', new Cart());
+        $cart->removeItem($id);
+        Yii::$app->session->set('cart', $cart);
+
+        return $this->redirect(['cart']);
+    }
+
+    public function actionUpdate()
+    {
+        $id = Yii::$app->request->post('id');
+        $quantity = Yii::$app->request->post('quantity');
+
+        $cart = Yii::$app->session->get('cart', new Cart());
+        $cart->updateItem($id, $quantity);
+        Yii::$app->session->set('cart', $cart);
+
+        return $this->redirect(['cart']);
     }
 
     public function actionAddToCart()
     {
-        $request = Yii::$app->request;
-        $id = $request->post('id');
-        $name = $request->post('name');
-        $price = $request->post('price');
-        $image_url = $request->post('image_url');
-        $ves = $request->post('ves');
-        $description = $request->post('description');
+        $id = Yii::$app->request->post('id');
+        $tovar = Tovar::findOne($id);
 
-        $cart = Yii::$app->session->get('cart', []);
-
-        if (isset($cart[$id])) {
-            $cart[$id]['quantity'] += 1;
-        } else {
-            $cart[$id] = [
-                'id' => $id,
-                'name' => $name,
-                'price' => $price,
-                'image_url' => $image_url,
-                'ves' => $ves,
-                'description' => $description,
-                'quantity' => 1,
-            ];
+        if ($tovar) {
+            $cart = Yii::$app->session->get('cart', new Cart());
+            $cart->addItem($tovar->attributes);
+            Yii::$app->session->set('cart', $cart);
         }
 
+        return $this->redirect(['site/cart']);
+    }
+
+    public function actionRemoveFromCart($id)
+    {
+        $cart = Yii::$app->session->get('cart', new Cart());
+        $cart->removeItem($id);
         Yii::$app->session->set('cart', $cart);
 
         return $this->redirect(['site/cart']);
     }
 
+    public function actionUpdateCart()
+    {
+        $id = Yii::$app->request->post('id');
+        $quantity = Yii::$app->request->post('quantity');
+
+        $cart = Yii::$app->session->get('cart', new Cart());
+        $cart->updateItem($id, $quantity);
+        Yii::$app->session->set('cart', $cart);
+
+        return $this->redirect(['site/cart']);
+    }
+
+    public function actionCart()
+    {
+        $cart = Yii::$app->session->get('cart', new Cart());
+        return $this->render('cart', ['cart' => $cart]);
+    }
     public function actionIndex()
     {
         return $this->render('index');
