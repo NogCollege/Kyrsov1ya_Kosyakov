@@ -6,22 +6,33 @@ use yii\db\ActiveRecord;
 
 class Tovar extends ActiveRecord
 {
-    public function attributes()
-    {
-        return [
-            'id',
-            'name',
-            'price',
-            'image_url',
-            'cat',
-            'description',
-            'ves',
-            'kal',
-        ];
-    }
     public static function tableName()
     {
-        return 'TOVAR';
+        return 'tovar';
+    }
+
+    public function rules()
+    {
+        return [
+            [['name', 'price', 'description', 'image_url', 'cat', 'ves'], 'required'],
+            [['ves'], 'number'],
+            [['name'], 'string'],
+            [['max_opis'], 'string'],
+            [['description', 'image_url', 'cat','price'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'name' => 'Название',
+            'price' => 'Цена',
+            'description' => 'Минимальное Описание',
+            'image_url' => 'URL изображения',
+            'cat' => 'Категория',
+            'ves' => 'Вес',
+        ];
     }
 
 }

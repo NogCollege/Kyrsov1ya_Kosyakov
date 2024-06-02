@@ -2,13 +2,13 @@
 use yii\helpers\Html;
 use yii\bootstrap5\ActiveForm;
 
-$this->title = 'Авторизация';
+$this->title = 'Login';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Пожалуйста ввойдите в аккаунт</p>
+    <p>пожалуйста войдите в аккаунт:</p>
 
     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
 
@@ -19,11 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $form->field($model, 'rememberMe')->checkbox() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
     </div>
-        <p class="reg"><?=  Html::a('Регистрация',  ['/site/register']) ?></p>
-
-
-
+    <p class="reg"><?=  Html::a('Регистрация',  ['/site/signup']) ?></p>
     <?php ActiveForm::end(); ?>
+
+
 </div>
+
+

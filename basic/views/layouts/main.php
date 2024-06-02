@@ -44,7 +44,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <li>О компании</li>
             <div class="nomer no-vid">
                 <li><?= '7 (499) 110-20-47' ?></li>
+                <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('admin')): ?>
+                    <li><?= Html::a('Админ', ['/site/admin']) ?></li>
+                <?php endif; ?>
+                <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('courier')): ?>
+                    <li><?= Html::a('Админ', ['/site/courier']) ?></li>
+                <?php endif; ?>
             </div>
+
             <img>
             <div class="korzina">
                 <li><?= Html::a(Html::img('/../web/img/free-icon-shopping-cart-711897%20(2).png', ['alt' => 'your image']), ['/site/cart']) ?></li>

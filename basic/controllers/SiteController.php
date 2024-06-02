@@ -2,17 +2,19 @@
 
 namespace app\controllers;
 
+use app\models\OrderForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\RegisterForm;
+use app\models\SignupForm;
 use app\models\User;
 use app\models\LoginForm;
 use app\models\Tovar;
 use app\models\Cart;
-use app\models\Order;
+use yii\data\ActiveDataProvider;
+use yii\web\NotFoundHttpException;
 use yii\helpers\Url;
 use yii\helpers\Html;
 class SiteController extends Controller
@@ -20,47 +22,15 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout', 'admin'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['admin'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback' => function($rule, $action) {
-                            return Yii::$app->user->identity->role === User::ROLE_ADMIN;
-                        },
-                    ],
-                ],
-            ],
-        ];
-    }
 
-    public function actions()
+    public function actionSignup()
     {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
-
-    public function actionRegister()
-    {
-        $model = new RegisterForm();
-        if ($model->load(Yii::$app->request->post()) && $model->register()) {
-            return $this->redirect(['login']);
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            return $this->goHome();
         }
-        return $this->render('register', [
+
+        return $this->render('signup', [
             'model' => $model,
         ]);
     }
@@ -73,10 +43,14 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            if (Yii::$app->user->identity->role === User::ROLE_ADMIN) {
-                return $this->redirect(['admin']);
+            $user = User::findOne(Yii::$app->user->id);
+            if ($user->role == User::ROLE_ADMIN) {
+                return $this->redirect(['site/admin']);
+            } elseif ($user->role == User::ROLE_COURIER) {
+                return $this->redirect(['site/courier']);
+            } else {
+                return $this->goHome();
             }
-            return $this->goBack();
         }
 
         return $this->render('login', [
@@ -84,88 +58,115 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionAdmin()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Tovar::find(),
+        ]);
+
+        return $this->render('admin', [
+            'dataProvider' => $dataProvider,
+            'action' => 'admin',
+        ]);
+    }
+    public function actionCreate()
+    {
+        $model = new Tovar();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('admin', [
+            'model' => $model,
+            'action' => 'create',
+        ]);
+    }
+
+    public function actionUpdatee($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('admin', [
+            'model' => $model,
+            'action' => 'updatee',
+        ]);
+    }
+
+    public function actionDelete($id)
+    {
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Tovar::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    public function actionCourier()
+    {
+        return $this->render('courier');
+    }
+
     public function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->goHome();
     }
-
-    public function actionAdmin()
+    public function getTotal()
     {
-        return $this->render('admin');
-    }
-    public function actionCreateOrder()
-    {
-        // Получаем текущего пользователя
-        $user = Yii::$app->user->identity;
-
-        // Создаем новый заказ
-        $model = new Order();
-        $model->customer_name = $user->username; // Имя пользователя
-        $model->customer_email = $user->email; // Email пользователя
-        $model->promocode = 'nogcollege'; // Пример применения промокода
-        $model->delivery_method = 'home_delivery'; // Пример выбора метода доставки
-
-        // Сохраняем модель в базе данных
-        if ($model->save()) {
-            // Успешно сохранено
-            return $this->redirect(['order/view', 'id' => $model->id]);
-        } else {
-            // Ошибка при сохранении
-            Yii::error("Ошибка при сохранении заказа: " . json_encode($model->errors));
-            throw new \yii\web\HttpException(500, "Ошибка при сохранении заказа");
+        $total = 0;
+        $cart = Yii::$app->session->get('cart', new Cart());
+        $items = $cart->getItems();
+        foreach ($items as $item) {
+            $total += $item['price'] * $item['quantity'];
         }
+        return $total;
     }
+
     public function actionCheckout()
     {
-        $order = new Order();
-        $cart = Yii::$app->session->get('cart', new Cart());
+        $model = new OrderForm();
+        $items = []; // Получение данных для корзины, например, из базы данных или сессии
 
-        if ($order->load(Yii::$app->request->post()) && $order->validate()) {
-            $order->customer_name = Yii::$app->request->post('Order')['customer_name'];
-            $order->customer_email = Yii::$app->request->post('Order')['customer_email'];
-            $order->applyPromocode($order->promocode); // Применение промокода
-            $order->status = Order::STATUS_CREATED;
-            $order->save();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Логика обработки заказа...
 
-            // Отправка писем
-            $this->sendEmailToCustomer($order);
-            $this->sendEmailToAdmin($order);
+            // Очистка корзины после успешного оформления заказа
+            Yii::$app->session->remove('cart');
 
-            // Перенаправление на страницу статуса заказа
-            return $this->redirect(['site/order-status', 'id' => $order->id]);
+            // Отправка электронного письма
+            Yii::$app->mailer->compose()
+                ->setFrom('fernardot2211@gmail.com') // Замените на ваш адрес электронной почты
+                ->setTo($model->email)
+                ->setSubject('Ваш заказ успешно оформлен')
+                ->setTextBody('Спасибо за ваш заказ.')
+                ->send();
+
+            // Прочие действия...
+
+            Yii::$app->session->setFlash('success', 'Ваш заказ успешно оформлен.');
+            return $this->redirect(['site/index']); // Перенаправляем на главную страницу
         }
 
-        return $this->render('checkout', ['order' => $order, 'cart' => $cart]);
-    }
-
-    public function actionOrderStatus($id)
-    {
-        $order = Order::findOne($id);
-        return $this->render('order-status', ['order' => $order]);
-    }
-
-    private function sendEmailToCustomer($order)
-    {
-        Yii::$app->mailer->compose()
-            ->setTo($order->email)
-            ->setSubject('Подтверждение заказа')
-            ->setTextBody('Ваш заказ успешно оформлен.')
-            ->send();
-    }
-
-    private function sendEmailToAdmin($order)
-    {
-        $adminEmail = 'kolt12566@gmail.com'; // Замените на реальный адрес администратора
-        Yii::$app->mailer->compose()
-            ->setTo($adminEmail)
-            ->setSubject('Новый заказ')
-            ->setTextBody('Поступил новый заказ. Номер заказа: ' . $order->id)
-            ->send();
+        return $this->render('checkout', ['model' => $model, 'items' => $items]);
     }
 
 
-public function actionAdd()
+
+
+    public function actionAdd()
     {
         $id = Yii::$app->request->post('id');
         $tovar = Tovar::findOne($id);
