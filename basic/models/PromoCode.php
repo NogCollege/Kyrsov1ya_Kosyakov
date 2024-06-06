@@ -46,10 +46,22 @@ class PromoCode extends ActiveRecord
     {
         return [
             [['code', 'discount', 'active'], 'required'],
-            [['code'], 'string', 'max' => 255],
             [['discount'], 'number'],
             [['active'], 'boolean'],
-            [['created_at', 'updated_at'], 'safe'], // assuming they are automatically handled by the database
+            [['created_at', 'updated_at'], 'safe'],
+            [['code'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'code' => 'Code',
+            'discount' => 'Discount',
+            'active' => 'Active',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 }

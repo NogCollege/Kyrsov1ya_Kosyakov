@@ -93,7 +93,7 @@ class SiteController extends Controller
 
     public function actionUpdatee($id)
     {
-        $model = $this->findModel($id);
+        $model = Tovar::findOne($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -107,19 +107,60 @@ class SiteController extends Controller
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        Tovar::findOne($id)->delete();
 
         return $this->redirect(['index']);
     }
 
-    protected function findModel($id)
+    public function actionCreatePromo()
     {
-        if (($model = Tovar::findOne($id)) !== null) {
-            return $model;
+        $model = new PromoCode();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['promo-index']);
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return $this->render('admin', [
+            'model' => $model,
+            'action' => 'createPromo',
+        ]);
     }
+
+    public function actionUpdatePromo($id)
+    {
+        $model = PromoCode::findOne($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['promo-index']);
+        }
+
+        return $this->render('admin', [
+            'model' => $model,
+            'action' => 'updatePromo',
+        ]);
+    }
+
+    public function actionDeletePromo($id)
+    {
+        PromoCode::findOne($id)->delete();
+
+        return $this->redirect(['promo-index']);
+    }
+
+    public function actionPromoIndex()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => PromoCode::find(),
+        ]);
+
+        return $this->render('admin', [
+            'dataProvider' => $dataProvider,
+            'action' => 'promo',
+        ]);
+    }
+
+
+
 
 
     public function actionCourier()
@@ -142,29 +183,7 @@ class SiteController extends Controller
         }
         return $total;
     }
-    public function actionProcessOrder()
-    {
-        $model = new OrderForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $order = new Order();
-            $order->customer_name = $model->customer_name;
-            $order->customer_email = $model->email;
-            $order->delivery_method = $model->delivery;
-            $order->total = $this->calculateTotal(); // здесь нужно реализовать логику подсчета общей суммы заказа
-
-            if ($order->save()) {
-                Yii::$app->session->setFlash('success', 'Заказ успешно оформлен.');
-                return $this->redirect(['site/index']);
-            } else {
-                Yii::$app->session->setFlash('error', 'Произошла ошибка при оформлении заказа.');
-            }
-        }
-
-        return $this->render('checkout', [
-            'model' => $model,
-        ]);
-    }
 
 
     public function actionCheckout()

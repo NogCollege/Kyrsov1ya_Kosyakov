@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if ($action === 'admin'): ?>
         <p>
             <?= Html::a('Создать товар', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Создать промокод', ['create-promo'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <?= GridView::widget([
@@ -44,6 +45,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             ],
         ]); ?>
+
+        <?= Html::a('Управление промокодами', ['promo-index'], ['class' => 'btn btn-primary']) ?>
+
     <?php elseif ($action === 'create' || $action === 'updatee'): ?>
         <div class="tovar-form">
             <?php $form = ActiveForm::begin(); ?>
@@ -53,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'ves')->textInput() ?>
             <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
             <?= $form->field($model, 'cat')->dropDownList([
-                'салаты' => 'Салаты',
+                'салат' => 'Салат',
                 'напитки' => 'Напитки',
                 'картошка' => 'картошка',
                 'гарниры' => 'гарниры',
@@ -61,10 +65,56 @@ $this->params['breadcrumbs'][] = $this->title;
                 'супы'=>'супы',
             ], ['prompt' => 'Select Category']) ?>
 
-
-
             <div class="form-group">
                 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Updatee', ['class' => 'btn btn-success']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+    <?php elseif ($action === 'promo'): ?>
+        <p>
+            <?= Html::a('Создать промокод', ['create-promo'], ['class' => 'btn btn-success']) ?>
+        </p>
+
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'id',
+                'code',
+                'discount',
+                'active:boolean',
+                'created_at:datetime',
+                'updated_at:datetime',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{update} {delete}',
+                    'buttons' => [
+                        'update' => function ($url, $model, $key) {
+                            return Html::a('Update', ['update-promo', 'id' => $model->id]);
+                        },
+                        'delete' => function ($url, $model, $key) {
+                            return Html::a('Delete', ['delete-promo', 'id' => $model->id], [
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to delete this item?',
+                                    'method' => 'post',
+                                ],
+                            ]);
+                        },
+                    ],
+                ],
+            ],
+        ]); ?>
+    <?php elseif ($action === 'createPromo' || $action === 'updatePromo'): ?>
+        <div class="promo-form">
+            <?php $form = ActiveForm::begin(); ?>
+
+            <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'discount')->textInput() ?>
+            <?= $form->field($model, 'active')->checkbox() ?>
+
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
