@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\OrderForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -15,8 +14,10 @@ use app\models\Tovar;
 use app\models\Cart;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
-use yii\helpers\Url;
-use yii\helpers\Html;
+use app\models\Order;
+use app\models\OrderForm;
+use app\models\PromoCode;
+use app\models\OrderItem;
 class SiteController extends Controller
 {
     /**
@@ -60,49 +61,101 @@ class SiteController extends Controller
 
     public function actionAdmin()
     {
-        $dataProvider = new ActiveDataProvider([
+        $action = 'admin';
+        $dataProviderProducts = new ActiveDataProvider([
             'query' => Tovar::find(),
         ]);
 
+        $dataProviderPromoCodes = new ActiveDataProvider([
+            'query' => PromoCode::find(),
+        ]);
+
         return $this->render('admin', [
-            'dataProvider' => $dataProvider,
-            'action' => 'admin',
+            'dataProviderProducts' => $dataProviderProducts,
+            'dataProviderPromoCodes' => $dataProviderPromoCodes,
+            'action' => $action, // Pass the $action variable to the view
         ]);
     }
-    public function actionCreate()
+
+    public function actionCreateProduct()
     {
         $model = new Tovar();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['admin']);
         }
 
         return $this->render('admin', [
             'model' => $model,
-            'action' => 'create',
+            'action' => 'create-product',
         ]);
     }
 
-    public function actionUpdatee($id)
+    public function actionUpdateProduct($id)
     {
-        $model = $this->findModel($id);
+        $model = Tovar::findOne($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['admin']);
         }
 
         return $this->render('admin', [
             'model' => $model,
-            'action' => 'updatee',
+            'action' => 'update-product',
         ]);
     }
 
-    public function actionDelete($id)
+    public function actionDeleteProduct($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        Tovar::findOne($id)->delete();
+        return $this->redirect(['admin']);
     }
+
+    public function actionCreatePromoCode()
+    {
+        $model = new PromoCode();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Промокод успешно создан.');
+            return $this->redirect(['admin']);
+        }
+
+        return $this->render('create-promo-code', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdatePromoCode($id)
+    {
+        $model = PromoCode::findOne($id);
+
+        if ($model === null) {
+            throw new NotFoundHttpException('Промокод не найден.');
+        }
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Промокод успешно обновлен.');
+            return $this->redirect(['admin']);
+        }
+
+        return $this->render('update-promo-code', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDeletePromoCode($id)
+    {
+        $model = PromoCode::findOne($id);
+        if ($model !== null) {
+            $model->delete();
+            Yii::$app->session->setFlash('success', 'Промокод успешно удален.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Промокод не найден.');
+        }
+
+        return $this->redirect(['admin']);
+    }
+
 
     protected function findModel($id)
     {
@@ -113,6 +166,14 @@ class SiteController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
+    protected function findPromoCodeModel($id)
+    {
+        if (($model = PromoCode::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
     public function actionCourier()
     {
@@ -134,34 +195,57 @@ class SiteController extends Controller
         }
         return $total;
     }
+    public function actionProcessOrder()
+    {
+        $model = new OrderForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $order = new Order();
+            $order->customer_name = $model->customer_name;
+            $order->customer_email = $model->email;
+            $order->delivery_method = $model->delivery;
+            $order->total = $this->calculateTotal(); // здесь нужно реализовать логику подсчета общей суммы заказа
+
+            if ($order->save()) {
+                Yii::$app->session->setFlash('success', 'Заказ успешно оформлен.');
+                return $this->redirect(['site/index']);
+            } else {
+                Yii::$app->session->setFlash('error', 'Произошла ошибка при оформлении заказа.');
+            }
+        }
+
+        return $this->render('checkout', [
+            'model' => $model,
+        ]);
+    }
+
 
     public function actionCheckout()
     {
-        $model = new OrderForm();
-        $items = []; // Получение данных для корзины, например, из базы данных или сессии
+        $model = new Order();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            // Логика обработки заказа...
+            // Apply promo code if provided
+            if (!empty($model->promocode)) {
+                $model->applyPromocode($model->promocode);
+            }
 
-            // Очистка корзины после успешного оформления заказа
-            Yii::$app->session->remove('cart');
-
-            // Отправка электронного письма
-            Yii::$app->mailer->compose()
-                ->setFrom('fernardot2211@gmail.com') // Замените на ваш адрес электронной почты
-                ->setTo($model->email)
-                ->setSubject('Ваш заказ успешно оформлен')
-                ->setTextBody('Спасибо за ваш заказ.')
-                ->send();
-
-            // Прочие действия...
-
-            Yii::$app->session->setFlash('success', 'Ваш заказ успешно оформлен.');
-            return $this->redirect(['site/index']); // Перенаправляем на главную страницу
+            if (!$model->hasErrors()) {
+                // Save the order to the database or any other processing needed
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'Ваш заказ был успешно оформлен.');
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ошибка при сохранении заказа.');
+                }
+            }
         }
 
-        return $this->render('checkout', ['model' => $model, 'items' => $items]);
+        return $this->render('checkout', [
+            'model' => $model,
+        ]);
     }
+
 
 
 

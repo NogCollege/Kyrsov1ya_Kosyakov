@@ -14,13 +14,23 @@ $this->title = 'Оформление заказа';
     </div>
 <?php endif; ?>
 
+<?php if (Yii::$app->session->hasFlash('error')): ?>
+    <div class="alert alert-danger">
+        <?= Yii::$app->session->getFlash('error') ?>
+    </div>
+<?php endif; ?>
+
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model, 'promo_code')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'customer_name')->textInput(['maxlength' => true])->label('Имя заказчика') ?>
 
-<?= $form->field($model, 'delivery')->dropDownList(['address' => 'Доставка по адресу', 'pickup' => 'Самовывоз']) ?>
+<?= $form->field($model, 'address')->textInput(['maxlength' => true])->label('Адрес') ?>
 
-<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+<?= $form->field($model, 'promocode')->textInput(['maxlength' => true])->label('Промокод') ?>
+
+<?= $form->field($model, 'delivery_method')->dropDownList(['address' => 'Доставка по адресу', 'pickup' => 'Самовывоз'])->label('Тип доставки') ?>
+
+<?= $form->field($model, 'customer_email')->textInput(['maxlength' => true])->label('Электронная почта') ?>
 
 <div class="form-group">
     <?= Html::submitButton('Оформить заказ', ['class' => 'btn btn-primary']) ?>

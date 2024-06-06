@@ -17,7 +17,7 @@ $this->title = 'Корзина';
         <tr>
             <th>Изображение</th>
             <th>Название</th>
-            <th>Цена</th>
+            <th>Цена без скидки</th>
             <th>Количество</th>
             <th>Сумма</th>
             <th>Действие</th>
@@ -37,7 +37,6 @@ $this->title = 'Корзина';
                         <button type="submit">Изменить</button>
                     </form>
                 </td>
-                <td><?= Html::encode($item['price'] * $item['quantity']) ?></td>
                 <td>
                     <a href="<?= Url::to(['site/remove-from-cart', 'id' => $item['id']]) ?>">Удалить</a>
                 </td>
@@ -46,11 +45,9 @@ $this->title = 'Корзина';
         </tbody>
     </table>
 
-    <p>Общая сумма: <?= Html::encode($cart->getTotal()) ?></p>
+    <p>Общая сумма: <?= Html::encode($cart->getTotal()) ?> рублей</p>
 
     <div>
         <a href="<?= Url::to(['site/checkout']) ?>" class="btn btn-primary">Оформить заказ</a>
     </div>
 <?php endif; ?>
-
-

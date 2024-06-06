@@ -1,11 +1,11 @@
 <?php
 
-namespace app\models;
-
 use yii\base\Model;
 
 class OrderForm extends Model
 {
+    public $customer_name;
+    public $address;
     public $promo_code;
     public $delivery;
     public $email;
@@ -13,17 +13,21 @@ class OrderForm extends Model
     public function rules()
     {
         return [
-            [['promo_code', 'delivery', 'email'], 'required'],
+            [['customer_name', 'address', 'delivery', 'email'], 'required'],
+            [['customer_name', 'address', 'promo_code', 'email'], 'string', 'max' => 255],
             ['email', 'email'],
+            ['promo_code', 'validatePromoCode'],
         ];
     }
 
-    public function attributeLabels()
+    public function validatePromoCode($attribute, $params)
     {
-        return [
-            'promo_code' => 'Промокод',
-            'delivery' => 'Доставка',
-            'email' => 'Email',
-        ];
+        if (!$this->hasErrors()) {
+            $promoCode = PromoCode::findOne(['code' => $this->promo_code]);
+            if (!$promoCode) {
+                $this->addError($attribute, 'Недопустимый промокод');
+            }
+        }
     }
 }
+
