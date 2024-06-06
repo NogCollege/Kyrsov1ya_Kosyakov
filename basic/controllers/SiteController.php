@@ -62,7 +62,7 @@ class SiteController extends Controller
     public function actionAdmin()
     {
         $action = 'admin';
-        $dataProviderProducts = new ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => Tovar::find(),
         ]);
 
@@ -71,91 +71,46 @@ class SiteController extends Controller
         ]);
 
         return $this->render('admin', [
-            'dataProviderProducts' => $dataProviderProducts,
+            'dataProvider' => $dataProvider,
             'dataProviderPromoCodes' => $dataProviderPromoCodes,
-            'action' => $action, // Pass the $action variable to the view
+            'action' => $action,
         ]);
     }
 
-    public function actionCreateProduct()
+    public function actionCreate()
     {
         $model = new Tovar();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['admin']);
+            return $this->redirect(['index']);
         }
 
         return $this->render('admin', [
             'model' => $model,
-            'action' => 'create-product',
+            'action' => 'create',
         ]);
     }
 
-    public function actionUpdateProduct($id)
+    public function actionUpdatee($id)
     {
-        $model = Tovar::findOne($id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['admin']);
+            return $this->redirect(['index']);
         }
 
         return $this->render('admin', [
             'model' => $model,
-            'action' => 'update-product',
+            'action' => 'updatee',
         ]);
     }
 
-    public function actionDeleteProduct($id)
+    public function actionDelete($id)
     {
-        Tovar::findOne($id)->delete();
-        return $this->redirect(['admin']);
+        $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
     }
-
-    public function actionCreatePromoCode()
-    {
-        $model = new PromoCode();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Промокод успешно создан.');
-            return $this->redirect(['admin']);
-        }
-
-        return $this->render('create-promo-code', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionUpdatePromoCode($id)
-    {
-        $model = PromoCode::findOne($id);
-
-        if ($model === null) {
-            throw new NotFoundHttpException('Промокод не найден.');
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Промокод успешно обновлен.');
-            return $this->redirect(['admin']);
-        }
-
-        return $this->render('update-promo-code', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionDeletePromoCode($id)
-    {
-        $model = PromoCode::findOne($id);
-        if ($model !== null) {
-            $model->delete();
-            Yii::$app->session->setFlash('success', 'Промокод успешно удален.');
-        } else {
-            Yii::$app->session->setFlash('error', 'Промокод не найден.');
-        }
-
-        return $this->redirect(['admin']);
-    }
-
 
     protected function findModel($id)
     {
@@ -166,14 +121,6 @@ class SiteController extends Controller
         throw new NotFoundHttpException('The requested page does not exist.');
     }
 
-    protected function findPromoCodeModel($id)
-    {
-        if (($model = PromoCode::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
 
     public function actionCourier()
     {

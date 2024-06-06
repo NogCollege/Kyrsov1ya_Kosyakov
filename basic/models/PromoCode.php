@@ -46,10 +46,10 @@ class PromoCode extends ActiveRecord
     {
         return [
             [['code', 'discount', 'active'], 'required'],
+            [['code'], 'string', 'max' => 255],
             [['discount'], 'number'],
             [['active'], 'boolean'],
-            [['code'], 'string', 'max' => 255],
-            [['created_at', 'updated_at'], 'safe'],
+            [['created_at', 'updated_at'], 'safe'], // assuming they are automatically handled by the database
         ];
     }
 }
