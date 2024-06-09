@@ -9,7 +9,9 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use yii\bootstrap5\BootstrapAsset;
 
+BootstrapAsset::register($this);
 AppAsset::register($this);
 
 $this->registerCsrfMetaTags();
@@ -55,9 +57,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <img>
             <div class="korzina">
                 <li><?= Html::a(Html::img('/../web/img/free-icon-shopping-cart-711897%20(2).png', ['alt' => 'your image']), ['/site/cart']) ?></li>
-                <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
-                <li><?= Html::a(Html::img('/../web/img/free-icon-exit-603018.png', ['data-method' => 'post']), ['/site/logout']) ?></li>
+                <?php if (!Yii::$app->user->isGuest): ?>
+                    <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/profile']) ?></li>
+                    <li><?= Html::a(Html::img('/../web/img/free-icon-exit-603018.png', ['data-method' => 'post']), ['/site/logout']) ?></li>
+                <?php else: ?>
+                    <li><?= Html::a(Html::img('/../web/img/free-icon-login-6681204.png', ['alt' => 'your image']), ['/site/login']) ?></li>
+                <?php endif; ?>
             </div>
+
     </ul>
 </div>
     <div >
@@ -112,17 +119,6 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     </div>
 
 </footer>
-<!--<main id="main" class="flex-shrink-0" role="main">
-    <div class="container">
-        <?php /*if (!empty($this->params['breadcrumbs'])): */?>
-            <?php /*= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) */?>
-        <?php /*endif */?>
-        <?php /*= Alert::widget() */?>
-        <?php /*= $content */?>
-    </div>
-</main>-->
-
-
 
 <?php $this->endBody() ?>
 </body>

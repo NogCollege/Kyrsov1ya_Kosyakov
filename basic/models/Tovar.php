@@ -15,9 +15,9 @@ class Tovar extends ActiveRecord
     {
         return [
             [['name', 'price', 'description', 'image_url', 'cat', 'ves'], 'required'],
-            [['ves'], 'number'],
+            [['ves','price'], 'number'],
             [['name'], 'string'],
-            [['description', 'image_url','price','cat'], 'string', 'max' => 255],
+            [['description', 'image_url','cat'], 'string', 'max' => 255],
         ];
     }
 

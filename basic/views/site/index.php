@@ -68,59 +68,136 @@ $this->title = 'Картошка от Антошки';
         </div>
     </div>
 </section>
+<?php
+// Подключение к базе данных
+$pdo = new PDO('mysql:host=localhost;dbname=yii2basic', 'root', '');
+
+// Получение данных о товарах из базы
+$statement = $pdo->query('SELECT * FROM promotions');
+$promotions = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+
+
 <section id="menu" class="avtopark container">
     <div class="textov">
         <h1>Наше меню</h1>
-        <button class="smtr">Смотреть все</button>
+        <button class="smtr button-cat" data-category="all">Смотреть все</button>
     </div>
     <div class="tri container">
         <ul class="catalog">
             <li>
-                <button class="button-cat svet" data-category="suv">
+                <button class="button-cat svet" data-category="салат">
                     <p>Салаты</p>
                 </button>
             </li>
-            <li >
-                <button class="button-cat svet s1" data-category="business">
+            <li>
+                <button class="button-cat svet s1" data-category="закуски">
                     <p>Закуски</p>
                 </button>
             </li>
             <li>
-                <button class="button-cat svet s1" data-category="premium">
+                <button class="button-cat svet s1" data-category="гарниры">
                     <p>Гарниры</p>
                 </button>
             </li>
             <li>
-                <button class="button-cat svet s1" data-category="sport">
+                <button class="button-cat svet s1" data-category="супы">
                     <p>Супы</p>
                 </button>
             </li>
             <li>
-                <button class="button-cat svet s1" data-category="premium">
-                    <p>Десерты</p>
+                <button class="button-cat svet s1" data-category="картошка">
+                    <p>Картошка</p>
                 </button>
             </li>
             <li>
-                <button class="button-cat svet s1" data-category="comfort">
+                <button class="button-cat svet s1" data-category="напитки">
                     <p>Напитки</p>
                 </button>
             </li>
         </ul>
     </div>
     <?php
+// Подключение к базе данных
+$pdo = new PDO('mysql:host=localhost;dbname=yii2basic', 'root', '');
+
+// Получение данных о товарах из базы
+$statement = $pdo->query('SELECT * FROM promotions');
+$promotions = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+?>
+
+<div class="katalog container">
+    <h1>Еженедельные акции</h1>
+    <ul class="katal">
+        <?php foreach ($promotions as $index => $promotion): ?>
+            <?php if ($promotion['promotion_type'] === 'weekly'): ?>
+                 <li class="vis-biba" data-category="<?= Html::encode($promotion['cat']) ?>" style="display: <?= $index < 6 ? 'block' : 'none' ?>">
+                    <div class="img-kat">
+                        <img src="<?= Html::encode($promotion['image_url']) ?>" alt="">
+                    </div>
+                    <h4><?= Html::encode($promotion['name']) ?></h4>
+                    <p class="description"><?= Html::encode($promotion['description']) ?></p>
+                    <div class="cen">
+                        <p>Цена: <?= Html::encode($promotion['price']) ?></p>
+                        <form method="post" action="<?= Url::to(['site/add-to-corzin']) ?>">
+                            <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
+                            <input type="hidden" name="id" value="<?= Html::encode($promotion['id']) ?>">
+                            <input type="hidden" name="name" value="<?= Html::encode($promotion['name']) ?>">
+                            <input type="hidden" name="price" value="<?= Html::encode($promotion['price']) ?>">
+                            <input type="hidden" name="image_url" value="<?= Html::encode($promotion['image_url']) ?>">
+                            <button type="submit">заказать</button>
+                        </form>
+                    </div>
+                    </div>
+                </section>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+    </div>
+<div class="katalog container">
+    <h1>Ежедневные акции</h1>
+    <ul class="katal">
+        <?php foreach ($promotions as $index => $promotion): ?>
+            <?php if ($promotion['promotion_type'] === 'daily'): ?>
+                 <li class="vis-biba" data-category="<?= Html::encode($promotion['cat']) ?>" style="display: <?= $index < 6 ? 'block' : 'none' ?>">
+                    <div class="img-kat">
+                        <img src="<?= Html::encode($promotion['image_url']) ?>" alt="">
+                    </div>
+                    <h4><?= Html::encode($promotion['name']) ?></h4>
+                    <p class="description"><?= Html::encode($promotion['description']) ?></p>
+                    <div class="cen">
+                        <p>Цена: <?= Html::encode($promotion['price']) ?></p>
+                        <form method="post" action="<?= Url::to(['site/add-to-corzin']) ?>">
+                            <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
+                            <input type="hidden" name="id" value="<?= Html::encode($promotion['id']) ?>">
+                            <input type="hidden" name="name" value="<?= Html::encode($promotion['name']) ?>">
+                            <input type="hidden" name="price" value="<?= Html::encode($promotion['price']) ?>">
+                            <input type="hidden" name="image_url" value="<?= Html::encode($promotion['image_url']) ?>">
+                            <button type="submit">заказать</button>
+                        </form>
+                    </div>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+</div>
+
+    <?php
     $pdo = new PDO('mysql:host=localhost;dbname=yii2basic', 'root', '');
 
     // Получение данных о товарах из базы
     $statement = $pdo->query('SELECT * FROM TOVAR');
     $tovars = $statement->fetchAll(PDO::FETCH_ASSOC);
-
     ?>
 
-
     <div class="katalog container">
+        <h1>Основное меню</h1>
         <ul class="katal">
-            <?php foreach ($tovars as $tovar): ?>
-                <li class="vis-biba">
+            <?php foreach ($tovars as $index => $tovar): ?>
+                <li class="vis-biba" data-category="<?= Html::encode($tovar['cat']) ?>" style="display: <?= $index < 6 ? 'block' : 'none' ?>">
                     <div class="img-kat">
                         <img src="<?= Html::encode($tovar['image_url']) ?>" alt="">
                     </div>
@@ -143,7 +220,51 @@ $this->title = 'Картошка от Антошки';
                 </li>
             <?php endforeach; ?>
         </ul>
+        <button id="show-more" class="btn btn-primary">Показать еще</button>
     </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryButtons = document.querySelectorAll('.button-cat');
+    const items = document.querySelectorAll('.vis-biba');
+    const showMoreButton = document.getElementById('show-more');
+    let visibleItems = 6;
+
+    function filterItems(category) {
+        let displayedCount = 0;
+        items.forEach(item => {
+            if (category === 'all' || item.getAttribute('data-category') === category) {
+                if (displayedCount < visibleItems) {
+                    item.style.display = 'block';
+                    displayedCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.getAttribute('data-category');
+            visibleItems = 6; // Reset visible items counter
+            filterItems(category);
+        });
+    });
+
+    showMoreButton.addEventListener('click', () => {
+        visibleItems += 3;
+        const currentCategory = document.querySelector('.button-cat.svet.active')?.getAttribute('data-category') || 'all';
+        filterItems(currentCategory);
+    });
+
+    // Initial filter to show only the first 6 items
+    filterItems('all');
+});
+</script>
+
 <div id="onas" class="about_area">
     <div class="container">
         <div class="row align-items-center">

@@ -50,7 +50,13 @@ class Cart extends Model
     {
         $total = 0;
         foreach ($this->items as $item) {
-            $total += $item['price'] * $item['quantity'];
+            // Проверка типа данных перед выполнением операции
+            if (is_numeric($item['price']) && is_numeric($item['quantity'])) {
+                $total += $item['price'] * $item['quantity'];
+            } else {
+                // Обработка ошибки или пропуск этого элемента
+                // Возможно, нужно вывести сообщение об ошибке или записать ошибочные данные для дальнейшего анализа
+            }
         }
         return $total;
     }

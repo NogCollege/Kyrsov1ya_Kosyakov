@@ -1,33 +1,26 @@
 <?php
 
+namespace app\models;
+
 use yii\base\Model;
 
 class OrderForm extends Model
 {
     public $customer_name;
     public $address;
-    public $promo_code;
-    public $delivery;
-    public $email;
+    public $promocode;
+    public $delivery_method;
+    public $customer_email;
 
     public function rules()
     {
         return [
-            [['customer_name', 'address', 'delivery', 'email'], 'required'],
-            [['customer_name', 'address', 'promo_code', 'email'], 'string', 'max' => 255],
-            ['email', 'email'],
-            ['promo_code', 'validatePromoCode'],
+            [['customer_name', 'address', 'delivery_method', 'customer_email'], 'required'],
+            [['customer_name', 'address', 'promocode', 'customer_email'], 'string', 'max' => 255],
+            [['delivery_method'], 'in', 'range' => ['address', 'pickup']],
+            [['customer_email'], 'email'],
         ];
     }
-
-    public function validatePromoCode($attribute, $params)
-    {
-        if (!$this->hasErrors()) {
-            $promoCode = PromoCode::findOne(['code' => $this->promo_code]);
-            if (!$promoCode) {
-                $this->addError($attribute, 'Недопустимый промокод');
-            }
-        }
-    }
 }
+
 
