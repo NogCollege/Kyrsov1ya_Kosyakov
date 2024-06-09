@@ -21,6 +21,7 @@ class Order extends ActiveRecord
             [['delivery_method'], 'in', 'range' => ['address', 'pickup']],
             [['customer_email'], 'email'],
             ['promocode', 'validatePromocode'],
+            [['status'], 'string', 'max' => 50],
         ];
     }
 
@@ -50,6 +51,7 @@ class Order extends ActiveRecord
             'phone_number' => 'Phone Number',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'status' => 'Status',
         ];
     }
 

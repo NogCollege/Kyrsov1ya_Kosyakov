@@ -14,6 +14,7 @@ use app\models\Tovar;
 use app\models\Cart;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use app\models\Order;
 use app\models\OrderForm;
 use app\models\PromoCode;
@@ -299,7 +300,43 @@ class SiteController extends Controller
 
         return $this->redirect(['promotion-index']);
     }
+    public function actionOrderIndex()
+    {
+        $orderDataProvider = new \yii\data\ActiveDataProvider([
+            'query' => Order::find(),
+        ]);
 
+        return $this->render('admin', [
+            'action' => 'order-index',
+            'orderDataProvider' => $orderDataProvider,
+        ]);
+    }
+
+    public function actionUpdateOrder($id)
+    {
+        $action = 'updateOrder';
+        $model = $this->findOrderModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['order-index']);
+        }
+
+        return $this->render('admin', [
+            'action' => $action,
+            'model' => $model,
+        ]);
+    }
+
+
+
+    protected function findOrderModel($id)
+    {
+        if (($model = Order::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
     protected function findPromotionModel($id)
     {
         if (($model = Promotion::findOne($id)) !== null) {
@@ -336,14 +373,42 @@ class SiteController extends Controller
     }
 
 
-
-
-
-
-
-public function actionCourier()
+    public function actionCourier()
     {
-        return $this->render('courier');
+        // Получите текущие заказы
+        $orders = Order::find()->where(['status' => 'доставляется'])->all();
+
+        // Обработка запроса на изменение статуса
+        if (Yii::$app->request->isPost) {
+            $orderId = Yii::$app->request->post('orderId');
+            $order = Order::findOne($orderId);
+            if ($order) {
+                // Измените статус заказа на "доставлен"
+                $order->status = 'доставлен';
+                $order->save();
+                Yii::$app->session->setFlash('success', 'Статус заказа успешно обновлен.');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Ошибка при изменении статуса заказа.');
+            }
+        }
+
+        return $this->render('courier', [
+            'orders' => $orders,
+        ]);
+    }
+    public function actionUpdateStatus($orderId)
+    {
+        // Получение заказа по его ID
+        $order = Order::findOne($orderId);
+
+        // Обновление статуса заказа
+        if ($order !== null) {
+            $order->status = 'доставлен';
+            $order->save();
+        }
+
+        return $this->redirect(['courier']);
     }
 
     public function actionLogout()

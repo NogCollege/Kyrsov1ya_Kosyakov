@@ -217,46 +217,51 @@ $promotions = $statement->fetchAll(PDO::FETCH_ASSOC);
                             <button type="submit">заказать</button>
                         </form>
                     </div>
+                    <div class="centered-button">
+                        <button id="show-more" class="golden">Показать еще</button>
+                    </div>
                 </li>
             <?php endforeach; ?>
         </ul>
-        <button id="show-more" class="btn btn-primary">Показать еще</button>
     </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const categoryButtons = document.querySelectorAll('.button-cat');
-    const items = document.querySelectorAll('.vis-biba');
-    const showMoreButton = document.getElementById('show-more');
+$(document).ready(function() {
+    const categoryButtons = $('.button-cat');
+    const items = $('.vis-biba');
+    const showMoreButton = $('#show-more');
     let visibleItems = 6;
 
     function filterItems(category) {
         let displayedCount = 0;
-        items.forEach(item => {
-            if (category === 'all' || item.getAttribute('data-category') === category) {
+        items.each(function(index, item) {
+            if (category === 'all' || $(item).data('category') === category) {
                 if (displayedCount < visibleItems) {
-                    item.style.display = 'block';
+                    $(item).show();
                     displayedCount++;
                 } else {
-                    item.style.display = 'none';
+                    $(item).hide();
                 }
             } else {
-                item.style.display = 'none';
+                $(item).hide();
             }
         });
     }
 
-    categoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const category = button.getAttribute('data-category');
-            visibleItems = 6; // Reset visible items counter
-            filterItems(category);
-        });
+    categoryButtons.on('click', function() {
+        const category = $(this).data('category');
+        visibleItems = 6; // Reset visible items counter
+        filterItems(category);
     });
 
-    showMoreButton.addEventListener('click', () => {
+    showMoreButton.on('mouseenter', function() {
+        $(this).addClass('golden');
+    }).on('mouseleave', function() {
+        $(this).removeClass('golden');
+    }).on('click', function() {
         visibleItems += 3;
-        const currentCategory = document.querySelector('.button-cat.svet.active')?.getAttribute('data-category') || 'all';
+        const currentCategory = $('.button-cat.svet.active').data('category') || 'all';
         filterItems(currentCategory);
     });
 
@@ -264,6 +269,47 @@ document.addEventListener('DOMContentLoaded', function() {
     filterItems('all');
 });
 </script>
+<style>
+.centered-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Это высота всего экрана */
+}
+
+#show-more.golden {
+    background: linear-gradient(to top right, #9F7437, #E3D293);
+    color: black; /* Изменяем цвет текста на черный */
+}
+/* Общие стили для кнопок */
+./* Общие стили для кнопок */
+.button-cat {
+
+    outline: none; /* Убираем контур */
+    font-weight: bold; /* Полужирный текст */
+    text-transform: uppercase; /* Прописные буквы */
+    transition: all 0.3s ease; /* Плавный переход */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Стили для наведения на кнопку */
+.button-cat:hover {
+    transform: translateY(-3px); /* Сдвиг вверх */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
+}
+
+/* Стили для активной кнопки */
+.button-cat:active {
+    transform: translateY(0); /* Возвращение в исходное положение */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+
+
+</style>
+
+
+
 
 <div id="onas" class="about_area">
     <div class="container">

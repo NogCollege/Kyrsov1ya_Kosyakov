@@ -50,7 +50,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <li><?= Html::a('Админ', ['/site/admin']) ?></li>
                 <?php endif; ?>
                 <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->hasRole('courier')): ?>
-                    <li><?= Html::a('Админ', ['/site/courier']) ?></li>
+                    <li><?= Html::a('Курьер', ['/site/courier']) ?></li>
                 <?php endif; ?>
             </div>
 

@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Создать промокод', ['create-promo'], ['class' => 'btn btn-success']) ?>
             <?= Html::a('Создать акцию', ['create-promotion'], ['class' => 'btn btn-success']) ?>
             <?= Html::a('Управление акциями', ['promotion-index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('Управление заказами', ['order-index'], ['class' => 'btn btn-primary']) ?>
         </p>
 
         <?= GridView::widget([
@@ -260,6 +261,58 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
 
+    <?php elseif ($action === 'order-index'): ?>
+        <?= GridView::widget([
+            'dataProvider' => $orderDataProvider,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'id',
+                'user_id',
+                'customer_email',
+                'status',
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'template' => '{view} {update}',
+                    'buttons' => [
+                        'update' => function ($url, $model, $key) {
+                            return Html::a('Update Status', ['update-order', 'id' => $model->id]);
+                        },
+                    ],
+                ],
+            ],
+        ]); ?>
+
+    <?php elseif ($action === 'create-order'): ?>
+        <div class="order-form">
+            <?php $form = ActiveForm::begin(); ?>
+
+            <?= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'status')->dropDownList(['pending' => 'Pending', 'completed' => 'Completed', 'cancelled' => 'Cancelled']) ?>
+
+            <div class="form-group">
+                <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-success']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
+
+    <?php elseif ($action = 'update-order'): ?>
+        <div class="order-form">
+            <?php $form = ActiveForm::begin(); ?>
+            <?= $form->field($model, 'status')->dropDownList([
+                'Оформлен' => 'Оформлен',
+                'Принят' => 'Принят',
+                'Доставляется' => 'Доставляется',
+                'Завершен' => 'Завершен',
+            ]) ?>
+
+            <div class="form-group">
+                <?= Html::submitButton('Update', ['class' => 'btn btn-primary']) ?>
+            </div>
+
+            <?php ActiveForm::end(); ?>
+        </div>
     <?php endif; ?>
+
 </div>
 
