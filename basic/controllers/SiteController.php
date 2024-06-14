@@ -473,63 +473,7 @@ class SiteController extends Controller
     }
 
 
-    public function actionGetDiscount()
-    {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $promoCode = Yii::$app->request->post('PromoCode');
-        $discount = 0; // По умолчанию скидка равна 0
 
-        // Здесь ваш код для получения скидки из базы данных по промокоду
-        // Например, используйте модель Order для запроса к базе данных
-        $order = Order::find()->where(['PromoCode' => $promoCode])->one();
-        if ($order) {
-            $discount = $order->discount;
-        }
-
-        return ['discount' => $discount];
-    }
-
-    public function actionSendEmails()
-    {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $model = new Order();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            // Отправка письма заказчику
-            Yii::$app->mailer->compose()
-                ->setTo($model->customer_email)
-                ->setFrom([Yii::$app->params['adminEmail'] => 'Ваш сайт'])
-                ->setSubject('Ваш заказ оформлен')
-                ->setTextBody("Уважаемый(ая) {$model->customer_name},\n\nВаш заказ был успешно оформлен. Детали заказа:\n\n" .
-                    "Имя: {$model->customer_name}\n" .
-                    "Телефон: {$model->phone_number}\n" .
-                    "Адрес: {$model->address}\n" .
-                    "Промокод: {$model->promocode}\n" .
-                    "Тип доставки: {$model->delivery_method}\n" .
-                    "Email: {$model->customer_email}\n\n" .
-                    "Спасибо за ваш заказ!")
-                ->send();
-
-            // Отправка письма админу
-            Yii::$app->mailer->compose()
-                ->setTo(Yii::$app->params['adminEmail'])
-                ->setFrom([Yii::$app->params['adminEmail'] => 'Ваш сайт'])
-                ->setSubject('Новый заказ')
-                ->setTextBody("Поступил новый заказ. Детали заказа:\n\n" .
-                    "Имя: {$model->customer_name}\n" .
-                    "Телефон: {$model->phone_number}\n" .
-                    "Адрес: {$model->address}\n" .
-                    "Промокод: {$model->promocode}\n" .
-                    "Тип доставки: {$model->delivery_method}\n" .
-                    "Email: {$model->customer_email}")
-                ->send();
-
-            return ['status' => 'success', 'message' => 'Заказ успешно добавлен в базу данных и письма отправлены!'];
-        } else {
-            return ['status' => 'error', 'message' => 'Произошла ошибка при добавлении заказа в базу данных!'];
-        }
-    }
     public function actionAddToCorzin()
     {
         $id = Yii::$app->request->post('id');
