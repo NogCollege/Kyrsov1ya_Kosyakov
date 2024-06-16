@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5f68dec4-389b-4e50-8df0-03405326ff64" name="Changes" comment="переделал карточку" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
+  <component name="ComposerConfigs">
+    <option name="configs">
+      <option value="$PROJECT_DIR$/basic/composer.json" />
+      <option value="$PROJECT_DIR$/basic/web/assets/c6e125c5/composer.json" />
+    </option>
+  </component>
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="unknown &lt;vpupkin@company.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="C:\Program Files\JetBrains\PhpStorm 2024.1.1\plugins\php\php.exe">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/verify" />
+      <path value="$PROJECT_DIR$/basic/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/basic/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/basic/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/basic/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/basic/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/basic/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/basic/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/basic/vendor/cebe/markdown" />
+      <path value="$PROJECT_DIR$/basic/vendor/behat/gherkin" />
+      <path value="$PROJECT_DIR$/basic/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/basic/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/basic/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/basic/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/basic/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/basic/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpspec/php-diff" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpunit/php-invoker" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/basic/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/browser-kit" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/mailer" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/basic/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/basic/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-composer" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-debug" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-faker" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-gii" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-symfonymailer" />
+      <path value="$PROJECT_DIR$/basic/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/basic/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/basic/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/basic/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/basic/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/cli-parser" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/code-unit" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/complexity" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/lines-of-code" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/basic/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/basic/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/basic/vendor/bower-asset/bootstrap" />
+      <path value="$PROJECT_DIR$/basic/vendor/bower-asset/inputmask" />
+      <path value="$PROJECT_DIR$/basic/vendor/bower-asset/jquery" />
+      <path value="$PROJECT_DIR$/basic/vendor/bower-asset/punycode" />
+      <path value="$PROJECT_DIR$/basic/vendor/bower-asset/yii2-pjax" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/codeception" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/lib-asserts" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/lib-innerbrowser" />
+      <path value="$PROJECT_DIR$/basic/vendor/composer" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/lib-web" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/module-asserts" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/module-filesystem" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/module-yii2" />
+      <path value="$PROJECT_DIR$/basic/vendor/codeception/stub" />
+      <path value="$PROJECT_DIR$/basic/vendor/yiisoft/yii2-bootstrap5" />
+    </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2fVN4TYvjz1ygiSAjW1tEek66kp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Codeception.SiteController.php::actionAddAdmin.executor&quot;: &quot;Run&quot;,
+    &quot;Codeception.SiteController.php::actionList.executor&quot;: &quot;Debug&quot;,
+    &quot;Codeception.Tovar.php::tableName.executor&quot;: &quot;Debug&quot;,
+    &quot;Codeception.basic.executor&quot;: &quot;Debug&quot;,
+    &quot;JavaScript Debug.main.php.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Мой ПК/PhpstormProjects/Kyrsov1ya_Kosyakov&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;documentdb&quot;,
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic" />
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\widgets" />
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\web" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\web\JavaScript" />
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\views\site" />
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\views\layouts" />
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\views\layouts\site" />
+      <recent name="C:\Users\Мой ПК\PhpstormProjects\Kyrsov1ya_Kosyakov\basic\views\user" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Codeception.basic">
+    <configuration name="SiteController.php::actionAddAdmin" type="CodeceptionConfigurationType" factoryName="Codeception" temporary="true">
+      <PhpTestRunnerSettings file="$PROJECT_DIR$/basic/controllers/SiteController.php" method="actionAddAdmin" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SiteController.php::actionList" type="CodeceptionConfigurationType" factoryName="Codeception" temporary="true">
+      <PhpTestRunnerSettings file="$PROJECT_DIR$/basic/controllers/SiteController.php" method="actionList" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Tovar.php::tableName" type="CodeceptionConfigurationType" factoryName="Codeception" temporary="true">
+      <PhpTestRunnerSettings file="$PROJECT_DIR$/basic/models/Tovar.php" method="tableName" scope="Method" />
+      <method v="2" />
+    </configuration>
+    <configuration name="basic" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings configuration_file="$PROJECT_DIR$/basic/codeception.yml" scope="ConfigurationFile" use_alternative_configuration_file="true" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main.php" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Kyrsov1ya_Kosyakov/basic/views/layouts/main.php" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.main.php" />
+        <item itemvalue="Codeception.Tovar.php::tableName" />
+        <item itemvalue="Codeception.SiteController.php::actionList" />
+        <item itemvalue="Codeception.SiteController.php::actionAddAdmin" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PS-241.15989.102" />
+        <option value="bundled-php-predefined-ba97393d7c68-c76157a7178b-com.jetbrains.php.sharedIndexes-PS-241.15989.102" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5f68dec4-389b-4e50-8df0-03405326ff64" name="Changes" comment="" />
+      <created>1713882094906</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1713882094906</updated>
+      <workItem from="1713882096904" duration="5291000" />
+      <workItem from="1713895918078" duration="78000" />
+      <workItem from="1713961721351" duration="3337000" />
+      <workItem from="1713965075747" duration="305000" />
+      <workItem from="1714039875459" duration="2967000" />
+      <workItem from="1714042993153" duration="3702000" />
+      <workItem from="1714113804439" duration="2167000" />
+      <workItem from="1714117671740" duration="12915000" />
+      <workItem from="1714130886830" duration="152000" />
+      <workItem from="1714131049559" duration="5000" />
+      <workItem from="1714131061283" duration="432000" />
+      <workItem from="1714293208034" duration="4389000" />
+      <workItem from="1714559189463" duration="4934000" />
+      <workItem from="1714651014067" duration="6837000" />
+      <workItem from="1714725668328" duration="1118000" />
+      <workItem from="1714726798418" duration="185000" />
+      <workItem from="1714726993342" duration="97000" />
+      <workItem from="1714727096834" duration="321000" />
+      <workItem from="1714727535944" duration="377000" />
+      <workItem from="1714727923950" duration="691000" />
+      <workItem from="1714732700616" duration="424000" />
+      <workItem from="1714733136618" duration="1600000" />
+      <workItem from="1714734766982" duration="141000" />
+      <workItem from="1714734916106" duration="860000" />
+      <workItem from="1714813950788" duration="5617000" />
+      <workItem from="1714826392323" duration="9000" />
+      <workItem from="1714906378810" duration="5963000" />
+      <workItem from="1714913825079" duration="1688000" />
+      <workItem from="1714915560039" duration="1345000" />
+      <workItem from="1715094951183" duration="6322000" />
+      <workItem from="1715243532834" duration="2392000" />
+      <workItem from="1715247358911" duration="8941000" />
+      <workItem from="1715256601904" duration="2106000" />
+      <workItem from="1715258747957" duration="37000" />
+      <workItem from="1715327482235" duration="9624000" />
+      <workItem from="1715383896372" duration="6219000" />
+      <workItem from="1715418438870" duration="3494000" />
+      <workItem from="1715421954001" duration="182000" />
+      <workItem from="1715422145211" duration="2076000" />
+      <workItem from="1715424522778" duration="374000" />
+      <workItem from="1715424945941" duration="133000" />
+      <workItem from="1715534161837" duration="10206000" />
+      <workItem from="1715614711194" duration="867000" />
+      <workItem from="1715615588060" duration="4211000" />
+      <workItem from="1715619822794" duration="323000" />
+      <workItem from="1715620162285" duration="352000" />
+      <workItem from="1715620580126" duration="743000" />
+      <workItem from="1715621353783" duration="813000" />
+      <workItem from="1715622199908" duration="622000" />
+      <workItem from="1715622840701" duration="568000" />
+      <workItem from="1715632855828" duration="1285000" />
+      <workItem from="1715875577314" duration="644000" />
+      <workItem from="1715876232959" duration="1342000" />
+      <workItem from="1716107826636" duration="1202000" />
+      <workItem from="1716451716237" duration="4078000" />
+      <workItem from="1716455809693" duration="2902000" />
+      <workItem from="1716458731186" duration="214000" />
+      <workItem from="1716548242162" duration="4623000" />
+      <workItem from="1716627272995" duration="4286000" />
+      <workItem from="1716731298096" duration="230000" />
+      <workItem from="1716731538168" duration="1001000" />
+      <workItem from="1716734219290" duration="960000" />
+      <workItem from="1716735191714" duration="239000" />
+      <workItem from="1716989964625" duration="348000" />
+      <workItem from="1716990326032" duration="11462000" />
+      <workItem from="1717224258410" duration="1396000" />
+      <workItem from="1717225671300" duration="142000" />
+      <workItem from="1717225824173" duration="2616000" />
+      <workItem from="1717228461987" duration="411000" />
+      <workItem from="1717228889312" duration="418000" />
+      <workItem from="1717229370061" duration="1131000" />
+      <workItem from="1717249053395" duration="5924000" />
+      <workItem from="1717316831485" duration="8744000" />
+      <workItem from="1717487747962" duration="141000" />
+      <workItem from="1717490784508" duration="7046000" />
+      <workItem from="1717503701696" duration="7858000" />
+      <workItem from="1717658267523" duration="6983000" />
+      <workItem from="1717672271376" duration="2642000" />
+      <workItem from="1717687603861" duration="5485000" />
+      <workItem from="1717748367073" duration="10659000" />
+      <workItem from="1717844567484" duration="3184000" />
+      <workItem from="1717847777788" duration="16501000" />
+      <workItem from="1717928618966" duration="16102000" />
+      <workItem from="1718022343931" duration="410000" />
+      <workItem from="1718054911182" duration="40000" />
+      <workItem from="1718303662485" duration="3111000" />
+      <workItem from="1718388440501" duration="3875000" />
+      <workItem from="1718458348143" duration="7415000" />
+      <workItem from="1718475997648" duration="4632000" />
+    </task>
+    <task id="LOCAL-00001" summary="переделал карточку">
+      <option name="closed" value="true" />
+      <created>1715620131579</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715620131579</updated>
+    </task>
+    <task id="LOCAL-00002" summary="переделал карточку">
+      <option name="closed" value="true" />
+      <created>1715621120134</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715621120134</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="написан код для авторизации и регистрации" />
+    <MESSAGE value="переделал карточку" />
+    <option name="LAST_COMMIT_MESSAGE" value="переделал карточку" />
+  </component>
+</project>
